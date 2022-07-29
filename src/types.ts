@@ -45,6 +45,7 @@ export type TypeGlobal = {
   babelConfig: any;
   buildFolder: string;
   sassExclude: Array<string>;
+  browserslist: Array<string>;
   templatePath: string;
   filenameHash: boolean;
   speedMeasure: boolean;
@@ -55,8 +56,10 @@ export type TypeGlobal = {
   webpCompression: number;
   sassImportPaths: Array<string>;
   includePolyfills: boolean;
+  rebuildCondition: (changes?: Set<string>, removals?: Set<string>) => boolean;
   sassIncludeGlobal: Array<string>;
 
+  swcLoader?: boolean;
   defineParams?: Record<string, Record<string, any>>;
   serviceWorker?: { entry: string; output: string };
 };

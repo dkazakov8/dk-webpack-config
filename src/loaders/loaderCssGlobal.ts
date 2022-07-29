@@ -7,5 +7,8 @@ import { TypeLoader } from '../types';
 
 export const loaderCssGlobal: TypeLoader = {
   loader: 'css-loader',
-  options: { importLoaders: 1 },
+  options: {
+    sourceMap: false,
+    importLoaders: 1,
+  },
 };

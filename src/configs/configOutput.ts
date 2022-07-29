@@ -12,4 +12,5 @@ export const configOutput: TypeConfig<webpack.Configuration['output']> = {
   filename: global.filenameHash ? 'js/[name].[contenthash].js' : 'js/[name].js',
   chunkFilename: global.filenameHash ? 'chunks/[name].[contenthash].js' : 'chunks/[name].js',
   publicPath: '/',
+  clean: { keep: /server\.js/ },
 };

@@ -35,8 +35,12 @@ export const configOptimization: TypeConfig<any> = {
   minimizer: [
     getTerserConfig(),
     new CssMinimizerPlugin({
-      // @ts-ignore
+      parallel: true,
       minify: CssMinimizerPlugin.cssoMinify,
+      minimizerOptions: {
+        // @ts-ignore
+        comments: 'first-exclamation',
+      },
     }),
   ],
 };

@@ -9,6 +9,7 @@ export const loaderCss: TypeLoader = {
   loader: 'css-loader',
   options: {
     importLoaders: 1,
+    sourceMap: false,
     modules: { localIdentName: '[path][local]' },
   },
 };

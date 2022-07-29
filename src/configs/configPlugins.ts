@@ -19,6 +19,7 @@ import { pluginImageMinimize } from '../plugins/pluginImageMinimize';
 import { pluginCompressionGzip } from '../plugins/pluginCompressionGzip';
 import { pluginCompressionBrotli } from '../plugins/pluginCompressionBrotli';
 import { pluginCircularDependency } from '../plugins/pluginCircularDependency';
+import { pluginConditionalAggregate } from '../plugins/pluginConditionalAggregate';
 
 export const configPlugins: TypeConfig<any> = [
   pluginCopy,
@@ -29,6 +30,7 @@ export const configPlugins: TypeConfig<any> = [
   pluginPreload,
   global.minify && pluginLodashModule,
   pluginImageMinimize,
+  pluginConditionalAggregate,
   global.ssr && pluginLoadable,
   Boolean(global.serviceWorker) && pluginWorkbox,
   global.circularCheck && pluginCircularDependency,

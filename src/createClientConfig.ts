@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import SpeedMeasurePlugin from 'speed-measure-webpack-plugin';
 
-import { pluginExtract } from './plugins/pluginExtract';
 import { TypeGlobal } from './types';
 
 export function createClientConfig(params: TypeGlobal): webpack.Configuration {
@@ -21,16 +20,15 @@ export function createClientConfig(params: TypeGlobal): webpack.Configuration {
     plugins: require('./configs/configPlugins').configPlugins,
     resolve: require('./configs/configResolve').configResolve,
     performance: require('./configs/configPerformance').configPerformance,
-    optimization: require('./configs/configOptimizationServer').configOptimizationServer,
+    optimization: require('./configs/configOptimization').configOptimization,
     watchOptions: require('./configs/configWatchOptions').configWatchOptions,
   };
 
   const configWithMeasure = global.speedMeasure
-    ? // @ts-ignore
-      (new SpeedMeasurePlugin().wrap(config) as webpack.Configuration)
+    ? (new SpeedMeasurePlugin().wrap(config as any) as webpack.Configuration)
     : config;
 
-  configWithMeasure.plugins!.push(pluginExtract as any);
+  configWithMeasure.plugins!.push(require('./plugins/pluginExtract').pluginExtract);
 
   return configWithMeasure;
 }

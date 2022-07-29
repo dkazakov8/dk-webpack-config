@@ -5,38 +5,33 @@
 
 import { TypeLoader } from '../types';
 
-export const loaderBabel: TypeLoader = {
-  // loader: 'swc-loader',
-  // options: {
-  //   jsc: {
-  //     parser: {
-  //       syntax: 'typescript',
-  //       jsx: true,
-  //       decorators: true,
-  //       dynamicImport: true,
-  //       decoratorsBeforeExport: true,
-  //     },
-  //     target: 'es2015',
-  //     loose: true,
-  //     transform: {
-  //       react: {
-  //         runtime: 'automatic',
-  //         useBuiltins: true,
-  //       },
-  //       legacyDecorator: true,
-  //       decoratorMetadata: true,
-  //     },
-  //   },
-  // },
+const swcConfig = {
+  loader: 'swc-loader',
+  options: {
+    jsc: {
+      parser: { tsx: true, syntax: 'typescript', dynamicImport: true },
+      transform: {
+        react: { runtime: 'automatic', useBuiltins: true },
+      },
+    },
+  },
+};
+
+const babelConfig = {
   loader: 'babel-loader',
   options: {
-    presets: [
-      global.includePolyfills
-        ? ['@babel/preset-env', { corejs: 3, useBuiltIns: 'usage' }]
-        : '@babel/preset-env',
-    ],
+    presets: ['@babel/preset-env'],
     plugins: global.babelConfig.plugins,
     ignore: ['node_modules'],
     cacheDirectory: true,
   },
 };
+
+if (global.includePolyfills) {
+  // @ts-ignore
+  swcConfig.options.env = { mode: 'usage', coreJs: 3, targets: global.browserslist };
+  // @ts-ignore
+  babelConfig.options.presets = [['@babel/preset-env', { corejs: 3, useBuiltIns: 'usage' }]];
+}
+
+export const loaderBabel: TypeLoader = global.swcLoader ? swcConfig : babelConfig;

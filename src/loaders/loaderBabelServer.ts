@@ -6,11 +6,10 @@
 import { TypeLoader } from '../types';
 
 export const loaderBabelServer: TypeLoader = {
-  loader: 'swc-loader',
+  loader: 'babel-loader',
   options: {
-    jsc: {
-      parser: { syntax: 'typescript' },
-      target: 'es2021',
-    },
+    presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
+    plugins: global.babelConfig.plugins,
+    cacheDirectory: true,
   },
 };

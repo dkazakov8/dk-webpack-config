@@ -25,10 +25,7 @@ export function createServerConfig(params: TypeGlobal): webpack.Configuration {
     watchOptions: require('./configs/configWatchOptions').configWatchOptions,
   };
 
-  const configWithMeasure = global.speedMeasure
-    ? // @ts-ignore
-      (new SpeedMeasurePlugin().wrap(config) as webpack.Configuration)
+  return global.speedMeasure
+    ? (new SpeedMeasurePlugin().wrap(config as any) as webpack.Configuration)
     : config;
-
-  return configWithMeasure;
 }
